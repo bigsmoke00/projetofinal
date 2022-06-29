@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#menu
+
+source ./conf
+
+while true;do
+
+echo""	
+echo "GERALDO DE SOUSA CRUZ NETO"
+echo ""
+echo -e "escolha uma das funções do script:\n"
+echo ""
+
+
+
+#funções do script backup
+
+echo "1- Executar script de backup "
+echo""
+echo "2- Visualizar logs de backup "
+echo""
+echo "3- Visualizar backup armazenados "
+echo""
+echo "4- Apagar backup's "
+echo""
+echo "5- Fechar programa "
+echo""
+
+read -p "escolha uma opção: " opcao
+case $opcao in
+
+	"1")limpar
+	    fazer_backup;;
+	"2")limpar
+	    ver_log;;
+	"3")limpar
+	    ver_backup;;
+	"4")limpar
+	    apagar_backup;;
+	"5") echo 'programa de backup finalizado'
+		break;;
+
+
+	esac
+
+done

@@ -1,0 +1,60 @@
+#!/bin/bash
+
+
+function fazer_backup(){
+
+
+user="sousa"
+ip="192.168.3.87"
+DIR=(
+	"/etc/script"
+)
+
+date="$(date +%d-%m-%Y)"
+formato="backup-pc1-$date.tar.gz"
+
+Log="/home/geraldo/projetofinal/log"
+#==========================================#
+die() { echo "$@" >>${Log}; exit 1 ;}
+
+#============REALIZANDO BACKUP VIA SSH E JA ENVIADO COMPACTADO PARA O SERVIDOR BACKUP=====================#
+
+ssh ${user}@${ip} "tar -czvf - ${DIR}" | cat > ${formato} || die "------ $(date +'%d-%m-%Y %T') Backup Diretorios [ERRO]"
+    echo "------ $(date +'%d-%m-%Y %T') Backup Diretorios [SUCESSO]" >>${Log}
+
+
+cd /home/geraldo/projetofinal
+mv ${formato} /home/geraldo/projetofinal/backup
+}
+
+
+function ver_log(){
+
+cd /home/geraldo/projetofinal
+
+cat log
+
+}
+
+
+function ver_backup(){	
+
+cd /home/geraldo/projetofinal/backup
+	
+ls | grep tar.gz
+
+}
+
+
+function apagar_backup(){
+dell='7'
+find "/home/geraldo/projetofinal/backup" -mtime "$dell" -delete
+echo "Limpeza efetuada com sucesso"
+}
+
+
+
+
+function limpar(){
+clear
+}
